@@ -21,11 +21,6 @@ const Home: NextPage = () => {
           </ListItem>
         ))}
       </List>
-      <ul>
-        {posts.data.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
     </div>
   );
 };
