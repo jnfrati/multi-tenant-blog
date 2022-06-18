@@ -1,7 +1,6 @@
-import { z } from "zod";
 import { CategoryModel } from "../../prisma/zod";
 import { getPrismaClient } from "../../utils/prisma";
-import { createRouter } from "../../utils/trpc";
+import { createRouter } from "../createRouter";
 
 const prisma = getPrismaClient();
 

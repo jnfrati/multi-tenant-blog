@@ -1,7 +1,7 @@
 import * as trpcNext from "@trpc/server/adapters/next";
 import { z } from "zod";
+import { createRouter } from "../../../server/createRouter";
 import { getPrismaClient } from "../../../utils/prisma";
-import { createRouter } from "../../../utils/trpc";
 
 const prisma = getPrismaClient();
 
@@ -15,6 +15,17 @@ export const appRouter = createRouter()
     resolve({ input }) {
       return {
         greeting: `hello ${input?.text ?? "world"}`,
+      };
+    },
+  })
+  .query("colors", {
+    resolve() {
+      return {
+        colors: {
+          brand: {
+            900: "#23ab3b",
+          },
+        },
       };
     },
   })

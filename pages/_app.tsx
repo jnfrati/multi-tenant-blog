@@ -2,9 +2,27 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { withTRPC } from "@trpc/next";
 import { AppRouter } from "./api/trpc/[trpc]";
+import { trpc } from "../utils/trpc";
+import { ChakraProvider, Colors, extendTheme } from "@chakra-ui/react";
+
+const getTheme = (colors: { brand: { [key: number]: string } }) => {
+  return extendTheme({
+    colors,
+  });
+};
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  const colors = trpc.useQuery(["colors"]);
+
+  if (!colors.data) {
+    return <div>Loading ...</div>;
+  }
+
+  return (
+    <ChakraProvider theme={getTheme(colors.data.colors)}>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  );
 }
 
 export default withTRPC<AppRouter>({
